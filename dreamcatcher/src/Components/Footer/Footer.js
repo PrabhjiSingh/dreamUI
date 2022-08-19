@@ -26,7 +26,7 @@ export default class Footer extends PureComponent {
                         </div>
                     </div>
                 </div>
-                <div class="footer-copyright text-center py-3">DreamTraders © 2022</div>
+                <div class="footer-copyright text-center py-3">Market Inferno © 2022</div>
             </footer>
 
         )
