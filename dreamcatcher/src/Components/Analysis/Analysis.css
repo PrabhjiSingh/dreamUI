@@ -1,0 +1,27 @@
+#infoContainer {
+    width: 97%;
+    margin: 2rem;
+    min-height: 6rem;
+    padding: 2rem;
+}
+
+#basicAnalysisContainer {
+    width: 97%;
+    margin: 2rem;
+    /* padding: 2rem; */
+    min-height: 20rem;
+}
+
+#optionsAnalysisContainer {
+    width: 97%;
+    margin: 2rem;
+    /* padding: 2rem; */
+    min-height: 20rem;
+}
+
+#futuresAnalysisContainer {
+    width: 97%;
+    margin: 2rem;
+    /* padding: 2rem; */
+    min-height: 20rem;
+}

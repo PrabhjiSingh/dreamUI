@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './Components/Header/Header';
-import Home from './Components/HomeComponent/Home';
+import Home from './Components/Home/Home';
 import Footer from './Components/Footer/Footer';
-import { Button } from 'react-bootstrap'
+import Analysis from './Components/Analysis/Analysis';
 
 const bg_image = new URL("./images/home_bg.jpg", import.meta.url)
 
@@ -11,10 +10,9 @@ function App() {
 
   return (
     <>
-    <Button variant="secondary">My Test Button</Button>
       <Header></Header>
-      <Home></Home>
-      <Footer></Footer>
+      <Analysis></Analysis>
+      {/* <Footer></Footer> */}
     </>
   );
 }
