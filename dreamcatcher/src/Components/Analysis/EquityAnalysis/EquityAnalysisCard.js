@@ -3,34 +3,30 @@ import Table from "react-bootstrap/Table";
 
 export default function EquityAnalysisCard(props) {
   const data = props.equityFieldAnalysisData;
-  console.log("Data is :" + JSON.stringify(data));
 
   return (
     <Card style={{ width: "20rem" }} className="">
       <Card.Body>
         <Card.Title className="text-center">
-          {`${data.type} (${data.analysis.currentValue})`}
+          {getAssociatedTextForFieldName(data.type)}
         </Card.Title>
-        <Card.Header className="text-center font-weight-bold ">
-          {data.analysis.period} Days
-        </Card.Header>
         <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th scope="col">Days</th>
+              <th scope="col">Change Percent</th>
+            </tr>
+          </thead>
           {data.analysis.map((periodAnalysis) => (
             <tbody>
               <tr>
-                <td>Minimum</td>
-                <td>{periodAnalysis.minValue}</td>
-                <td className="bg-danger">{periodAnalysis.minValueTime}</td>
-              </tr>
-              <tr>
-                <td>Maximum</td>
-                <td>{periodAnalysis.maxValue}</td>
-                <td className="bg-danger">{periodAnalysis.maxValueTime}</td>
-              </tr>
-              <tr>
-                <td>Average</td>
-                <td>{periodAnalysis.avgValue}</td>
-                <td>''</td>
+                <td>{periodAnalysis.period}</td>
+                <td className="bg-danger">
+                  {calculatePercentageValueAboveAverage(
+                    periodAnalysis.avgValue,
+                    periodAnalysis.currentValue
+                  )}%
+                </td>
               </tr>
             </tbody>
           ))}
@@ -38,4 +34,26 @@ export default function EquityAnalysisCard(props) {
       </Card.Body>
     </Card>
   );
+}
+
+function getAssociatedTextForFieldName(fieldName) {
+  if (fieldName === "volume") {
+    return "Volume";
+  }
+
+  if (fieldName === "deliveryPercentage") {
+    return "Delivery Percentage ";
+  }
+
+  if (fieldName === "tradeTurnover") {
+    return "Trade Turnover";
+  }
+
+  if (fieldName === "deliveryQuantity") {
+    return "Delivery Quantity";
+  }
+}
+
+function calculatePercentageValueAboveAverage(avgValue, currentValue) {
+  return Math.round(((currentValue - avgValue) / avgValue) * 100);
 }

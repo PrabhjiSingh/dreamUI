@@ -8,10 +8,9 @@ export async function fetchSymbolData(symbol, time, expiryTime) {
         "volume",
         "deliveryPercentage",
         "tradeTurnover",
-        "deliveryQuantity",
-        "volatility",
+        "deliveryQuantity"
       ],
-      period: ["50"],
+      period: ["3","10","50"],
     },
     priceAnalysis: {
       period: 100,
