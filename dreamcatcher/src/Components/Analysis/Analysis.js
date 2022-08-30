@@ -210,25 +210,32 @@ export default function Analysis(props) {
       setData(response);
       setUserSearch('');
     } catch (error) {
+      console.log("Error : "+ error.message)
       setError(error.message)
+      
     }
   };
 
   return (
     <>
+       <Container
+        id="searchContainer"
+        fluid
+      >
       <form className="d-flex" role="search" onSubmit={fetchDataHandler}>
         <input
           className="form-control me-2"
           type="search"
-          placeholder="Search"
-          aria-label="Search"
+          placeholder="Enter Symbol (e.g. RELIANCE)"
+          aria-label="Analyze"
           onChange={onUserInputChange}
           value={userSearch}
         />
-        <button className="btn btn-outline-success" type="submit">
+        <button className="btn btn-dark" type="submit">
           Analyze
         </button>
       </form>
+      </Container>
       {/* Info Container */}
       <Container
         id="infoContainer"
