@@ -8,9 +8,6 @@ import OptionAnalysisCard from "./OptionAnalysis/OptionAnalysisCard";
 import FutureAnalysisCard from "./FutureAnalysis/FutureAnalysisCard";
 import { fetchSymbolData } from "../../Services/AnalysisService";
 
-const [symbolAnalysis, setSymbolAnalysis] = useState({});
-const [error, setError] = useState("");
-
 const data = {
   fieldAnalysis: [
     {
@@ -209,6 +206,8 @@ const data = {
 // }
 
 export default function Analysis(props) {
+  const [symbolAnalysis, setSymbolAnalysis] = useState({});
+  const [error, setError] = useState("");
   return (
     <>
       {/* Info Container */}
@@ -228,7 +227,7 @@ export default function Analysis(props) {
         <Row>
           <Col>
             <h5 className="text-light">
-              `${data.closePrice} ${data.priceChangePercent}`
+              {`${data.closePrice} ${data.priceChangePercent}`}
             </h5>
           </Col>
         </Row>
@@ -246,16 +245,18 @@ export default function Analysis(props) {
           </Col>
         </Row>
 
+        <Row style={{ margin: "0.2rem" }}>
         {/* Basic Analysis Cards */}
         {data.fieldAnalysis.map((fa) => (
-          <Row style={{ margin: "0.2rem" }}>
+          
             <Col>
               <EquityAnalysisCard
                 equityFieldAnalysisData={fa}
               ></EquityAnalysisCard>
             </Col>
-          </Row>
+         
         ))}
+         </Row>
       </Container>
 
       <Container
