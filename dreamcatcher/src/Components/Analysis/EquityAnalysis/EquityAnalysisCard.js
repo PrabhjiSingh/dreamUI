@@ -13,15 +13,19 @@ export default function EquityAnalysisCard(props) {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th scope="col">Days</th>
-              <th scope="col">Change Percent</th>
+              <th>Days</th>
+              <th>Change %</th>
             </tr>
           </thead>
           {data.analysis.map((periodAnalysis) => (
             <tbody>
               <tr>
                 <td>{periodAnalysis.period}</td>
-                <td className="bg-danger">
+                <td className={getEquityAnalysisClassName(
+                    periodAnalysis.avgValue,
+                    periodAnalysis.currentValue
+                  )}
+                >
                   {calculatePercentageValueAboveAverage(
                     periodAnalysis.avgValue,
                     periodAnalysis.currentValue
@@ -56,4 +60,15 @@ function getAssociatedTextForFieldName(fieldName) {
 
 function calculatePercentageValueAboveAverage(avgValue, currentValue) {
   return Math.round(((currentValue - avgValue) / avgValue) * 100);
+}
+
+function getEquityAnalysisClassName(avgValue, currentValue) {
+
+  const value = calculatePercentageValueAboveAverage(avgValue, currentValue);
+
+  if(value < 0) {
+    return "bg-danger"
+  }
+
+  return "bg-success";
 }

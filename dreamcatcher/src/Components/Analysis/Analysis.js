@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Analysis.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -8,7 +8,7 @@ import OptionAnalysisCard from "./OptionAnalysis/OptionAnalysisCard";
 import FutureAnalysisCard from "./FutureAnalysis/FutureAnalysisCard";
 import { fetchSymbolData } from "../../Services/AnalysisService";
 
-const data = {
+const dummyData = {
   fieldAnalysis: [
     {
       type: "volume",
@@ -194,22 +194,41 @@ const data = {
   },
 };
 
-// function fetchDataHandler() {
-//   setError(null);
-//   try {
-//     const data = fetchSymbolData("HDFC", "05-Aug-2022", "29-Sep-2022");
-//     setSymbolAnalysis(data);
-//   } catch(error) {
-//     setError(error.message);
-//   }
-
-// }
-
 export default function Analysis(props) {
-  const [symbolAnalysis, setSymbolAnalysis] = useState({});
-  const [error, setError] = useState("");
+  const [data, setData] = useState(dummyData);
+  const [error, setError] = useState('');
+  const [userSearch, setUserSearch] = useState('');
+
+  const onUserInputChange = (event) => {
+    setUserSearch(event.target.value);
+  }
+
+  const fetchDataHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetchSymbolData(userSearch, "29-Aug-2022", "29-Sep-2022");
+      setData(response);
+      setUserSearch('');
+    } catch (error) {
+      setError(error.message)
+    }
+  };
+
   return (
     <>
+      <form className="d-flex" role="search" onSubmit={fetchDataHandler}>
+        <input
+          className="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          onChange={onUserInputChange}
+          value={userSearch}
+        />
+        <button className="btn btn-outline-success" type="submit">
+          Analyze
+        </button>
+      </form>
       {/* Info Container */}
       <Container
         id="infoContainer"
@@ -238,7 +257,6 @@ export default function Analysis(props) {
         fluid
         className="bg-light border rounded"
       >
-        {/* Basic Analysis Heading Row */}
         <Row className="border rounded bg-dark">
           <Col className="col-11" style={{ padding: "0.5rem" }}>
             <h4 className="text-light">Equity Analysis</h4>
@@ -246,17 +264,16 @@ export default function Analysis(props) {
         </Row>
 
         <Row style={{ margin: "0.2rem" }}>
-        {/* Basic Analysis Cards */}
-        {data.fieldAnalysis.map((fa) => (
-          
+          {data.fieldAnalysis.map((fa) => (
+
             <Col>
               <EquityAnalysisCard
                 equityFieldAnalysisData={fa}
               ></EquityAnalysisCard>
             </Col>
-         
-        ))}
-         </Row>
+
+          ))}
+        </Row>
       </Container>
 
       <Container
