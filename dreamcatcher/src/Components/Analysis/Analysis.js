@@ -296,7 +296,7 @@ export default function Analysis(props) {
 
         <Row>
           <Col>
-            <FutureAnalysisCard></FutureAnalysisCard>
+          <FutureAnalysisCard futureAnalysisData={data.futureAnalysis}></FutureAnalysisCard>
           </Col>
         </Row>
       </Container>
@@ -314,7 +314,7 @@ export default function Analysis(props) {
 
         <Row>
           <Col>
-            <OptionAnalysisCard></OptionAnalysisCard>
+          <OptionAnalysisCard optionAnalysisData={data.optionAnalysis}></OptionAnalysisCard>
           </Col>
         </Row>
       </Container>
